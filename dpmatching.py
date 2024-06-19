@@ -1,16 +1,15 @@
 import os
 import numpy as np
 
-# 定数
+
 file = 100  # 各データセットに含まれるファイルの数
 
-# MCEPデータを保持するクラス
 class MCEPData:
     def __init__(self, name, word, frame, mcepdata):
-        self.name = name  # データセットの名前
-        self.word = word  # 対応する単語
-        self.frame = frame  # フレーム数
-        self.mcepdata = mcepdata  # MCEPデータ
+        self.name = name  
+        self.word = word  
+        self.frame = frame  
+        self.mcepdata = mcepdata  
 
 def read_mcep_data(filepath):
     if not os.path.exists(filepath):
@@ -37,41 +36,40 @@ def dp_matching(temp_data, targ_data):
     return g[-1, -1] / (temp_data.frame + targ_data.frame)
 
 def main():
-    print("data number = 11, 12, 21, 22")
-    temp_num = int(input("set the template data: "))
-    targ_num = int(input("set the target data: "))
+    print("dataset number = 11, 12, 21, 22")
+    temp_num = int(input("set the template dataset: "))
+    targ_num = int(input("set the target dataset: "))
     print(f"start voice recognition city{temp_num:03} and city{targ_num:03}")
     count = 0
 
-    for h0 in range(file):
-        temp_filepath = f"./city_mcepdata/city{temp_num:03}/city{temp_num:03}_{h0+1:03}.txt"
+    for i in range(file):
+        temp_filepath = f"./city_mcepdata/city{temp_num:03}/city{temp_num:03}_{i+1:03}.txt"
         temp_data = read_mcep_data(temp_filepath)
 
         distances = []
+        print(f"file: city{temp_num:03}_{i+1:03}")
+        print("0% [", end="")
 
-        for h in range(file):
-            targ_filepath = f"./city_mcepdata/city{targ_num:03}/city{targ_num:03}_{h+1:03}.txt"
+        for j in range(file):
+            targ_filepath = f"./city_mcepdata/city{targ_num:03}/city{targ_num:03}_{j+1:03}.txt"
             targ_data = read_mcep_data(targ_filepath)
 
             distances.append(dp_matching(temp_data, targ_data))
 
+            print("#", end="", flush=True)
+        
+        print("] 100%")  # 行末で改行
+
         min_distance = min(distances)
         matched_file = distances.index(min_distance)
-        if matched_file == h0:
+
+        if matched_file == i:
             count += 1
         else:
-            print(f"===========Result NOT Matching===========\n"
-                  f"temp_data: city{temp_num:03}_{h0+1:03}.txt\n"
-                  f"target_data: city{targ_num:03}_{matched_file+1:03}.txt\n"
-                  f"tangokankyori: {min_distance}")
+            print(f"\nNOT Matching \n<info> \ntemplate_data: city{temp_num:03}_{i+1:03}.txt \ntarget_data: city{targ_num:03}_{matched_file+1:03}.txt \ndistance: {min_distance}\n")
 
-    accuracy = (count / file) * 100
-    FNAME_OUTPUT = f"./results/city{temp_num:03}_vs_city{targ_num:03}_result.txt"
-    os.makedirs(os.path.dirname(FNAME_OUTPUT), exist_ok=True)
-
-    # with open(FNAME_OUTPUT, 'a') as f_output:
-    #     f_output.write(f"正答率{accuracy:.2f}%です。\n")
-    print(f"\naccuracy:{accuracy:.2f}% ")
+    accuracy = count
+    print(f"city{temp_num:03} and city{targ_num:03} maching accuracy: {accuracy}% ")
 
 if __name__ == "__main__":
     main()
