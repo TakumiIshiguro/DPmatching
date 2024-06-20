@@ -1,0 +1,42 @@
+----------result----------
+NOT Matching 
+<info>
+template_data: city012_024.txt
+target_data: city021_027.txt
+distance: 0.745832028786799
+NOT Matching 
+<info>
+template_data: city012_042.txt
+target_data: city021_059.txt
+distance: 0.712920558801441
+NOT Matching 
+<info>
+template_data: city012_047.txt
+target_data: city021_012.txt
+distance: 0.860887765204202
+NOT Matching 
+<info>
+template_data: city012_054.txt
+target_data: city021_015.txt
+distance: 0.7132223524486679
+NOT Matching 
+<info>
+template_data: city012_064.txt
+target_data: city021_061.txt
+distance: 0.8075938921873664
+NOT Matching 
+<info>
+template_data: city012_090.txt
+target_data: city021_017.txt
+distance: 0.724683671581887
+NOT Matching 
+<info>
+template_data: city012_091.txt
+target_data: city021_017.txt
+distance: 0.7133453196787503
+NOT Matching 
+<info>
+template_data: city012_093.txt
+target_data: city021_007.txt
+distance: 0.7549464387599918
+accuracy = 92.0

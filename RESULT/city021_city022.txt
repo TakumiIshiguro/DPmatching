@@ -1,0 +1,7 @@
+----------result----------
+NOT Matching 
+<info>
+template_data: city021_015.txt
+target_data: city022_054.txt
+distance: 0.544185759070801
+accuracy = 99.0
